@@ -7,7 +7,7 @@
     use STDW\Contract\ConfigInterface;
     use STDW\Contract\ConfigHandlerInterface;
     use STDW\Config\Config;
-    use STDW\Config\Handler\FileHandler;
+    use STDW\Config\Handler\NullHandler;
 
 
     class ConfigServiceProvider extends ServiceProviderAbstracted
@@ -20,13 +20,12 @@
 
         public function register(): void
         {
-            $this->container->singleton(ConfigHandlerInterface::class, FileHandler::class);
+            $this->container->singleton(ConfigHandlerInterface::class, NullHandler::class);
             $this->container->singleton(ConfigInterface::class, Config::class);
         }
 
         public function boot(): void
         {
-            $this->container->config = $this->container->make(CacheInterface::class);
         }
 
         public function terminate(): void
